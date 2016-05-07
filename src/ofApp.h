@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxTSNE.h"
 
 class ofApp : public ofBaseApp{
 
@@ -23,6 +24,8 @@ class ofApp : public ofBaseApp{
         void getLine(int i);
         void parseData(vector<ofVec3f> data);
         void getBounds(vector<ofPolyline> &pl);
+        void doTsne();
+        void updatePoints();
     
         int w, h;
         int index;
@@ -33,4 +36,18 @@ class ofApp : public ofBaseApp{
         vector<ofPolyline> lineList;
         ofFbo fbo;
         bool save;
+    
+    struct LinePoint {
+        int class_;
+        ofPoint tsnePoint;
+        ofRectangle boundingBox;
+        ofPolyline line;
+        vector<float> point;
+    };
+    
+    ofxTSNE tsne;
+    vector<LinePoint> linePoints;
+    vector<vector<double> > tsnePoints;
+    
+    bool runManually;
 };
